@@ -10,10 +10,10 @@ public class Bundle {
         NativeLoader.load(null, "jbundle");
     }
 
-    Bundle(int initItemCount, int initDataSize){
+    public Bundle(int initItemCount, int initDataSize){
         mPtr = nCreate(initItemCount, initDataSize);
     }
-    Bundle(){
+    public Bundle(){
         this(0, 0);
     }
 
