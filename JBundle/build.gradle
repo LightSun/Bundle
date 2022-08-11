@@ -1,0 +1,48 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+}
+def base_version = '1.2.7'
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+
+    implementation "com.github.LightSun.Java-base:base:$base_version"
+}
+
+test {
+    useJUnitPlatform()
+}
+
+//----------------------------------------
+compileJava {
+    //-Werror:  will make warning to error.
+    options.compilerArgs = ['-Xlint:all']
+}
+compileTestJava {
+    // options.compilerArgs = ['-proc:none', '-Xlint:all','-Werror','-Xdiags:verbose']
+    options.compilerArgs = ['-Xlint:all']
+}
+
+def nativeBuildDir = "/home/heaven7/heaven7/study/github/mine/Shengxin/" +
+        "build-gatk-acc-Desktop_Qt_5_14_2_GCC_64bit-Release"
+task copyNativeLib(type: Copy) {
+    from nativeBuildDir
+    //com.med.icu.jni
+    into "$buildDir/classes/java/main/com/heaven7/java/bundle"
+    //into "$rootDir/src/main/resources"
+    include '*.so'
+    include '*.dylib'
+}
+
+//like gkl: https://github.com/Intel-HLS/GKL/blob/master/build.gradle
+//----- ok ----------
+//compileJava.finalizedBy copyNativeLib
+//test.dependsOn copyNativeLib
