@@ -264,6 +264,16 @@ public class Bundle {
     public void deSerialize(byte[] data){
         nDeSerialize(mPtr, data);
     }
+
+    /**
+     * open index cache for fast query item by name
+     */
+    public void openIndex(){
+        nOpenIndex(mPtr);
+    }
+    public void closeIndex(){
+        nCloseIndex(mPtr);
+    }
     //-----------------------------------------
     public final long getPointer() {
         return mPtr;
@@ -328,4 +338,6 @@ public class Bundle {
     private static native void nGetItemDesc(long ptr, int index, long descPtr);
     private static native void nGetItemDesc2(long ptr, String name, long descPtr);
     private static native boolean nHasName(long ptr, String name);
+    private static native void nOpenIndex(long ptr);
+    private static native void nCloseIndex(long ptr);
 }
