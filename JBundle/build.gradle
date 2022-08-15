@@ -38,8 +38,8 @@ task copyNativeLib(type: Copy) {
     //com.med.icu.jni
     into "$buildDir/classes/java/main/com/heaven7/java/bundle"
     //into "$rootDir/src/main/resources"
-    include '*.so'
-    include '*.dylib'
+    include 'libjbundle.so'
+    include 'libjbundle.dylib'
 }
 
 //like gkl: https://github.com/Intel-HLS/GKL/blob/master/build.gradle

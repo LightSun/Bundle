@@ -223,37 +223,45 @@ public class Bundle {
     public int getItemCount(){
         return nGetItemCount(mPtr);
     }
-    public void getItemAt(int index, BundleItem item){
-        nGetItem(mPtr, index, item.getPointer());
+    public boolean getItemAt(int index, BundleItem item){
+        return nGetItem(mPtr, index, item.getPointer());
     }
     public BundleItem getItemAt(int index){
         BundleItem item = new BundleItem();
-        getItemAt(index, item);
-        return item;
+        if(getItemAt(index, item)){
+            return item;
+        }
+        return null;
     }
-    public void getItemByName(String name, BundleItem item){
-        nGetItemByName(mPtr, name, item.getPointer());
+    public boolean getItemByName(String name, BundleItem item){
+        return nGetItemByName(mPtr, name, item.getPointer());
     }
     public BundleItem getItemByName(String name){
         BundleItem item = new BundleItem();
-        nGetItemByName(mPtr, name, item.getPointer());
-        return item;
+        if(nGetItemByName(mPtr, name, item.getPointer())){
+            return item;
+        }
+        return null;
     }
-    public void getItemDesc(int index, BundleItemDesc desc){
-        nGetItemDesc(mPtr, index, desc.getPointer());
+    public boolean getItemDesc(int index, BundleItemDesc desc){
+        return nGetItemDesc(mPtr, index, desc.getPointer());
     }
     public BundleItemDesc getItemDesc(int index){
         BundleItemDesc desc = new BundleItemDesc();
-        getItemDesc(index, desc);
-        return desc;
+        if(getItemDesc(index, desc)){
+            return desc;
+        }
+        return null;
     }
-    public void getItemDesc(String name, BundleItemDesc desc){
-        nGetItemDesc2(mPtr, name, desc.getPointer());
+    public boolean getItemDesc(String name, BundleItemDesc desc){
+        return nGetItemDesc2(mPtr, name, desc.getPointer());
     }
     public BundleItemDesc getItemDesc(String name){
         BundleItemDesc desc = new BundleItemDesc();
-        getItemDesc(name, desc);
-        return desc;
+        if(getItemDesc(name, desc)){
+            return desc;
+        }
+        return null;
     }
     public boolean hasName(String name){
         return nHasName(mPtr, name);
@@ -309,8 +317,6 @@ public class Bundle {
     private static native void nPutDoubleArray(long ptr, String name, double[] val);
     private static native void nPutStringArray(long ptr, String name, String[] val);
 
-    private static native int nGetItemCount(long ptr);
-    private static native void nGetItem(long ptr, int index, long itemPtr);
     private static native byte nGetByte(long ptr, long itemPtr);
     private static native short nGetShort(long ptr, long itemPtr);
     private static native int nGetInt(long ptr, long itemPtr);
@@ -331,13 +337,17 @@ public class Bundle {
     private static native double[] nGetDoubleArray(long ptr, long itemPtr);
     private static native String[] nGetStringArray(long ptr, long itemPtr);
 
-    private static native void nGetItemByName(long ptr,String name, long itemPtr);
+    private static native int nGetItemCount(long ptr);
+    private static native boolean nGetItem(long ptr, int index, long itemPtr);
+    private static native boolean nGetItemByName(long ptr,String name, long itemPtr);
+
     private static native byte[] nSerialize(long ptr);
     private static native void nDeSerialize(long ptr, byte[] data);
 
-    private static native void nGetItemDesc(long ptr, int index, long descPtr);
-    private static native void nGetItemDesc2(long ptr, String name, long descPtr);
+    private static native boolean nGetItemDesc(long ptr, int index, long descPtr);
+    private static native boolean nGetItemDesc2(long ptr, String name, long descPtr);
     private static native boolean nHasName(long ptr, String name);
+
     private static native void nOpenIndex(long ptr);
     private static native void nCloseIndex(long ptr);
 }
