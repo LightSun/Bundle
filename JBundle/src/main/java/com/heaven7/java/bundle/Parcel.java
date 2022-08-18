@@ -15,12 +15,15 @@ public class Parcel{
     public final long getPointer() {
         return mPtr;
     }
-    @Override
-    protected void finalize() throws Throwable {
+    public void destroyNative(){
         if(mPtr != 0){
             nDestroy(mPtr);
             mPtr = 0;
         }
+    }
+    @Override
+    protected void finalize() throws Throwable {
+        destroyNative();
         super.finalize();
     }
     //----------------------------------------------
