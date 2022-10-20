@@ -21,6 +21,25 @@ test {
     useJUnitPlatform()
 }
 
+task oneJarSimple(type: Jar) {
+    //archiveFileName or baseName
+    archiveFileName = "JBundle-1.1-SNAPSHOT.jar"
+    from sourceSets.main.output
+    duplicatesStrategy = DuplicatesStrategy.WARN
+    manifest {
+        attributes("Main-Class": "com.heaven7.medicu.ServerMain",
+                "Implementation-Title": "Gradle",
+                'Implementation-Version': "1.0",
+        )
+    }
+    dependsOn configurations.runtimeClasspath
+//    from {
+//        configurations.runtimeClasspath.findAll { it.name.endsWith('jar') }.collect {
+//            zipTree(it)
+//        }
+//    }
+}
+
 //----------------------------------------
 compileJava {
     //-Werror:  will make warning to error.
