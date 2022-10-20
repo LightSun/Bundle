@@ -89,7 +89,7 @@ public class BundleTest {
     }
 }
 - bundle demo (cpp)
-```
+```cpp
 #include <string.h>
 #include "main.h"
 #include "utils/Bundle.h"
