@@ -88,7 +88,9 @@ public class BundleTest {
         assertArrayEquals(b.getBlob(b.getItemByName("i")), str.getBytes());
     }
 }
+
 - bundle demo (cpp)
+
 ```cpp
 #include <string.h>
 #include "main.h"
